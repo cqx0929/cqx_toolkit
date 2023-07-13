@@ -49,15 +49,15 @@ def convert_pdf_to_images(pdf_path, output_folder):
     # 读取文档
     with fitz.Document(pdf_path) as doc:
 
-        # cv2保存图片的所有路径
+        # 保存图片的所有路径
         output_paths = [os.path.join(temp_dir, f'page_{page.number}.jpg') for page in doc]
 
-        # 统计pdf总数，设置进度条最大值
+        # 统计pdf总页数，设置进度条最大值
         total_pages = len(output_paths)
         progress_bar['maximum'] = total_pages
 
         # 多线程处理pdf
-        with concurrent.futures.ThreadPoolExecutor(max_workers=2000) as executor:
+        with concurrent.futures.ThreadPoolExecutor(max_workers=256) as executor:
 
             # 线程保存
             futures = []
@@ -81,16 +81,19 @@ def convert_pdf_to_images(pdf_path, output_folder):
         shutil.move(temp_dir, output_folder)
 
 
+# 选择pdf按钮调用的方法
 def select_pdf_file():
     file_path = filedialog.askopenfilename(filetypes=[("PDF Files", "*.pdf")])
     pdf_path_var.set(file_path)
 
 
+# 选择输出按钮调用的方法
 def select_output_folder():
     folder_path = filedialog.askdirectory()
     output_folder_var.set(folder_path)
 
 
+# 转换PDF按钮调用的方法
 def convert_pdf_to_images_gui():
     pdf_path = pdf_path_var.get()
     output_folder = output_folder_var.get()
