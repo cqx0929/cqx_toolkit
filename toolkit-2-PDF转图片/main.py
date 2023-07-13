@@ -1,12 +1,12 @@
 import os
+import cv2
 import fitz
-import concurrent.futures
+import shutil
+import numpy as np
 import tkinter as tk
+import concurrent.futures
 from tkinter import filedialog
 from tkinter.ttk import Progressbar
-import cv2
-import numpy as np
-import shutil
 
 
 def convert_page_to_image(page, output_path):
