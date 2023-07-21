@@ -1,3 +1,0 @@
-pymupdf
-opencv-contrib-python
-numpy
